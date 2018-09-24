@@ -5,10 +5,13 @@
  */
 package chat.rmi;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author emanuel
  */
-public class Sender {
-    
+public interface Sender extends Remote{
+    void sendMessege(String msg) throws RemoteException;
 }

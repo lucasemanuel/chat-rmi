@@ -20,12 +20,17 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     }
     
     @Override
-    public void sendMessege(String msg) throws RemoteException {
+    public void sendMessege(String msg, String username) throws RemoteException {
         try{
             System.out.println(msg);
         }catch(Exception ex){
             System.out.println(ex);
         }
+    }
+
+    @Override
+    public void readMessege() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

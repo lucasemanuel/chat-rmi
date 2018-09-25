@@ -5,6 +5,13 @@
  */
 package chat.cliente;
 
+import chat.rmi.Sender;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+
 /**
  *
  * @author emanuel
@@ -14,8 +21,15 @@ public class Client {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
+        Sender proxy = (Sender)Naming.lookup("rmi://127.0.0.1:10000/sender");
+    
+        Scanner in = new Scanner(System.in);
+        while(in.hasNextLine()){
+            proxy.sendMessege(in.nextLine(), "Lucas");
+        }
+        
+        in.close();
     }
     
 }

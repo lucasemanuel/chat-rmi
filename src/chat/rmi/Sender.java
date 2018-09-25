@@ -13,5 +13,7 @@ import java.rmi.RemoteException;
  * @author emanuel
  */
 public interface Sender extends Remote{
-    void sendMessege(String msg) throws RemoteException;
+    
+    void sendMessege(String msg, String username) throws RemoteException;
+    void readMessege() throws RemoteException;
 }

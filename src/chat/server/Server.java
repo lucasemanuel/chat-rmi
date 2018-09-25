@@ -20,9 +20,9 @@ public class Server {
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, MalformedURLException{
             
-        LocateRegistry.createRegistry(10000);
+        LocateRegistry.createRegistry(10001);
         Sender stub = new Messenger();
-        Naming.bind("rmi://localhost:10000/sender", stub);
+        Naming.bind("rmi://127.0.0.1:10001/sender", stub);
 
     }
     

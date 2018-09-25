@@ -22,7 +22,7 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     @Override
     public void sendMessege(String msg, String username) throws RemoteException {
         try{
-            System.out.println(msg);
+            System.out.println(msg + username);
         }catch(Exception ex){
             System.out.println(ex);
         }

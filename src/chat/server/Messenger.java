@@ -14,7 +14,11 @@ import java.rmi.server.UnicastRemoteObject;
  * @author emanuel
  */
 public class Messenger extends UnicastRemoteObject implements Sender{
-
+    
+    public Messenger() throws RemoteException{
+        super();
+    }
+    
     @Override
     public void sendMessege(String msg) throws RemoteException {
         try{

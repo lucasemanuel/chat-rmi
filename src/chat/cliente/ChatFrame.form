@@ -27,7 +27,7 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblChat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                       <Component id="lblUser" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -47,7 +47,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="23" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblChat" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblUser" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -95,14 +95,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMessegeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblChat">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Chat RMI"/>
+        <Property name="text" type="java.lang.String" value="CHAT RMI"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblUser">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Username: "/>
+        <Property name="text" type="java.lang.String" value="USERNAME: "/>
       </Properties>
     </Component>
   </SubComponents>

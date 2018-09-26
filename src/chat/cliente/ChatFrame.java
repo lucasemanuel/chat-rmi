@@ -32,7 +32,7 @@ public class ChatFrame extends javax.swing.JFrame {
         this.userName = name.toUpperCase();
         this.proxy = (Sender)Naming.lookup("rmi://localhost:10001/sender");
         initComponents();
-        lblUser.setText("Username: "+this.userName);
+        lblUser.setText("USERNAME: "+this.userName);
         new Thread(thread).start();
     }
 
@@ -53,7 +53,7 @@ public class ChatFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listMessege = new javax.swing.JList<>();
         txtMessege = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        lblChat = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,9 +73,9 @@ public class ChatFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Chat RMI");
+        lblChat.setText("CHAT RMI");
 
-        lblUser.setText("Username: ");
+        lblUser.setText("USERNAME: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +85,7 @@ public class ChatFrame extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblChat)
                         .addGap(121, 121, 121)
                         .addComponent(lblUser))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,7 +100,7 @@ public class ChatFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblChat)
                     .addComponent(lblUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,8 +200,8 @@ public class ChatFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChat;
     private javax.swing.JLabel lblUser;
     private javax.swing.JList<String> listMessege;
     private javax.swing.JTextField txtMessege;

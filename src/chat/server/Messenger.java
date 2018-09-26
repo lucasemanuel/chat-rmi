@@ -38,5 +38,5 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     public ArrayList<Messege> readMessege() throws RemoteException {
         return (ArrayList<Messege>) this.listMessege;
     }
-    
+
 }

@@ -22,14 +22,14 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
-        Sender proxy = (Sender)Naming.lookup("rmi://127.0.0.1:10001/sender");
+        Sender proxy = (Sender)Naming.lookup("rmi://10.49.8.132:10000/sender");
     
         Scanner in = new Scanner(System.in);
         while(in.hasNextLine()){
             proxy.sendMessege(in.nextLine(), "Lucas");
         }
         
-        in.close();
+        in.close(); 
     }
     
 }

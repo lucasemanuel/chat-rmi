@@ -8,6 +8,9 @@ package chat.server;
 import chat.rmi.Sender;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -15,6 +18,8 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class Messenger extends UnicastRemoteObject implements Sender{
     
+    private List listMessege = new ArrayList();
+
     public Messenger() throws RemoteException{
         super();
     }
@@ -23,14 +28,15 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     public void sendMessege(String msg, String username) throws RemoteException {
         try{
             System.out.println(msg + username);
-        }catch(Exception ex){
-            System.out.println(ex);
+            this.listMessege.add(msg);
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 
     @Override
-    public void readMessege() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList readMessege() throws RemoteException {
+        return (ArrayList) this.listMessege;
     }
     
 }

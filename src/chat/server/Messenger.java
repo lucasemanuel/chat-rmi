@@ -27,7 +27,7 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     @Override
     public void sendMessege(String text, String username) throws RemoteException {
         try{
-            //System.out.println(messege + username);
+            System.out.println(text + username);
             this.listMessege.add(new Messege(text, username));
         }catch(Exception e){
             System.out.println(e);

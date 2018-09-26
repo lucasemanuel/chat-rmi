@@ -11,6 +11,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -19,7 +21,7 @@ import javax.swing.DefaultListModel;
  *
  * @author emanuel
  */
-public class ClientFrame extends javax.swing.JFrame {
+public class ClientFrame extends javax.swing.JFrame implements Observer{
     private DefaultListModel listModel = new DefaultListModel();
     private final Sender proxy;
 
@@ -103,10 +105,10 @@ public class ClientFrame extends javax.swing.JFrame {
     
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         try {
-            if(txtMessege.getText() != ""){
+//            if(txtMessege.getText() != ""){
                 proxy.sendMessege(txtMessege.getText(), "Lucas");
-                this.renderMessege();
-            }
+//                this.update(, 1);
+//            }
         } catch (RemoteException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -166,4 +168,13 @@ public class ClientFrame extends javax.swing.JFrame {
     private javax.swing.JList<String> listMessege;
     private javax.swing.JTextArea txtMessege;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        try {
+            this.renderMessege();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

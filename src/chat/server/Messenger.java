@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Messenger extends UnicastRemoteObject implements Sender{
     
-    private List<Messege> listMessege = new ArrayList<Messege>();
+    public List<Messege> listMessege = new ArrayList<Messege>();
 
     public Messenger() throws RemoteException{
         super();
@@ -28,15 +28,22 @@ public class Messenger extends UnicastRemoteObject implements Sender{
     public void sendMessege(String text, String username) throws RemoteException {
         try{
             //System.out.println(messege + username);
-            this.listMessege.add(new Messege(text, username));
+            MessengerObs mObs = new MessengerObs();
+            this.listMessege = mObs.sendMessege(text, username, this.listMessege);
+            mObs.verify();
         }catch(Exception e){
             System.out.println(e);
         }
     }
 
+    
     @Override
     public ArrayList<Messege> readMessege() throws RemoteException {
         return (ArrayList<Messege>) this.listMessege;
     }
+//    
+//    public List getListMessege(){
+//        return listMessege;
+//    }
     
 }

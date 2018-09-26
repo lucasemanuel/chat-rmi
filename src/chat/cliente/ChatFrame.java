@@ -29,10 +29,11 @@ public class ChatFrame extends javax.swing.JFrame {
      * Creates new form ClientFrame
      */
     public ChatFrame(String name) throws NotBoundException, MalformedURLException, RemoteException {
-        this.userName = name;
+        this.userName = name.toUpperCase();
         this.proxy = (Sender)Naming.lookup("rmi://localhost:10001/sender");
         initComponents();
         lblUser.setText("Username: "+this.userName);
+        new Thread(thread).start();
     }
 
     private ChatFrame() {
@@ -113,21 +114,25 @@ public class ChatFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void renderMessege() throws RemoteException{
-        ArrayList arraylist = proxy.readMessege();
-        listMessege.setModel(listModel);
-        listModel.removeAllElements();
-        for(Object msg: arraylist){
+    private void renderMessege(){
+        try {
+            ArrayList arraylist = proxy.readMessege();
+            listMessege.setModel(listModel);
+            listModel.removeAllElements();
+            for(Object msg: arraylist){
 //            System.out.println(msg.toString());
-            listModel.addElement(msg.toString());
+                listModel.addElement(msg.toString());
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        txtMessege.setText("");
     }
     
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         try {
             if(txtMessege.getText() != ""){
                 proxy.sendMessege(txtMessege.getText(), userName);
+                txtMessege.setText("");
                 this.renderMessege();
             }
         } catch (RemoteException ex) {
@@ -172,9 +177,26 @@ public class ChatFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ChatFrame().setVisible(true);
+                
+            
             }
         });
     }
+    
+    public Runnable thread = new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                renderMessege();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;

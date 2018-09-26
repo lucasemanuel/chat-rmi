@@ -19,16 +19,24 @@ import javax.swing.DefaultListModel;
  *
  * @author emanuel
  */
-public class ClientFrame extends javax.swing.JFrame {
+public class ChatFrame extends javax.swing.JFrame {
+    
     private DefaultListModel listModel = new DefaultListModel();
     private final Sender proxy;
+    private String userName;
 
     /**
      * Creates new form ClientFrame
      */
-    public ClientFrame() throws NotBoundException, MalformedURLException, RemoteException {
+    public ChatFrame(String name) throws NotBoundException, MalformedURLException, RemoteException {
+        this.userName = name;
         this.proxy = (Sender)Naming.lookup("rmi://localhost:10001/sender");
         initComponents();
+        lblUser.setText("Username: "+this.userName);
+    }
+
+    private ChatFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -43,8 +51,9 @@ public class ClientFrame extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listMessege = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtMessege = new javax.swing.JTextArea();
+        txtMessege = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,9 +66,15 @@ public class ClientFrame extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(listMessege);
 
-        txtMessege.setColumns(20);
-        txtMessege.setRows(5);
-        jScrollPane2.setViewportView(txtMessege);
+        txtMessege.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMessegeActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Chat RMI");
+
+        lblUser.setText("Username: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,23 +82,31 @@ public class ClientFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(121, 121, 121)
+                        .addComponent(lblUser))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSubmit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMessege, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(txtMessege, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -104,14 +127,18 @@ public class ClientFrame extends javax.swing.JFrame {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         try {
             if(txtMessege.getText() != ""){
-                proxy.sendMessege(txtMessege.getText(), "Lucas");
+                proxy.sendMessege(txtMessege.getText(), userName);
                 this.renderMessege();
             }
         } catch (RemoteException ex) {
-            Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtMessegeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessegeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMessegeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,40 +157,31 @@ public class ClientFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new ClientFrame().setVisible(true);
-                } catch (NotBoundException ex) {
-                    System.out.println(ex);
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (MalformedURLException ex) {
-                    System.out.println(ex);
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (RemoteException ex) {
-                    System.out.println(ex);
-                    Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new ChatFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JList<String> listMessege;
-    private javax.swing.JTextArea txtMessege;
+    private javax.swing.JTextField txtMessege;
     // End of variables declaration//GEN-END:variables
 }

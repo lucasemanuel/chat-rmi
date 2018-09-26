@@ -5,6 +5,7 @@
  */
 package chat.rmi;
 
+import chat.server.Messege;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public interface Sender extends Remote{
     
-    void sendMessege(String msg, String username) throws RemoteException;
-    ArrayList readMessege() throws RemoteException;
+    void sendMessege(String messege, String username) throws RemoteException;
+    ArrayList<Messege> readMessege() throws RemoteException;
 
 }

@@ -26,7 +26,7 @@ public class Client {
     
         Scanner in = new Scanner(System.in);
         while(in.hasNextLine()){
-            proxy.sendMessege(in.nextLine(), "Lucas");
+//            proxy.sendMessege(in.nextLine(), "Lucas");
         }
         
         in.close(); 

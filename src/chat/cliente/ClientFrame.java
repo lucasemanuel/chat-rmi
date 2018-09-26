@@ -92,19 +92,21 @@ public class ClientFrame extends javax.swing.JFrame {
 
     private void renderMessege() throws RemoteException{
         ArrayList arraylist = proxy.readMessege();
-        //listModel.setNumRows(0);
         listMessege.setModel(listModel);
         listModel.removeAllElements();
         for(Object msg: arraylist){
-            listModel.addElement(msg);
+//            System.out.println(msg.toString());
+            listModel.addElement(msg.toString());
         }
         txtMessege.setText("");
     }
     
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         try {
-            proxy.sendMessege(txtMessege.getText(), "Lucas");
-            this.renderMessege();
+            if(txtMessege.getText() != ""){
+                proxy.sendMessege(txtMessege.getText(), "Lucas");
+                this.renderMessege();
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(ClientFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

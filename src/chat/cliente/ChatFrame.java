@@ -6,6 +6,7 @@
 package chat.cliente;
 
 import chat.rmi.Sender;
+import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -72,6 +73,11 @@ public class ChatFrame extends javax.swing.JFrame {
                 txtMessegeActionPerformed(evt);
             }
         });
+        txtMessege.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMessegeKeyPressed(evt);
+            }
+        });
 
         lblChat.setText("CHAT RMI");
 
@@ -133,7 +139,7 @@ public class ChatFrame extends javax.swing.JFrame {
             if(txtMessege.getText() != ""){
                 proxy.sendMessege(txtMessege.getText(), userName);
                 txtMessege.setText("");
-                this.renderMessege();
+//                this.renderMessege();
             }
         } catch (RemoteException ex) {
             Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,6 +150,17 @@ public class ChatFrame extends javax.swing.JFrame {
     private void txtMessegeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessegeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMessegeActionPerformed
+
+    private void txtMessegeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMessegeKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            try {
+                proxy.sendMessege(txtMessege.getText(), userName);
+                txtMessege.setText("");
+            } catch (RemoteException ex) {
+                Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtMessegeKeyPressed
 
     /**
      * @param args the command line arguments

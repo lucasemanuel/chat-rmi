@@ -22,7 +22,7 @@ public class Server {
             
         LocateRegistry.createRegistry(10001);
         Sender stub = new Messenger();
-        Naming.bind("rmi://127.0.0.1:10001/sender", stub);
+        Naming.bind("rmi://localhost:10001/sender", stub);
 
     }
     

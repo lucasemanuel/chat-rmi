@@ -5,6 +5,7 @@
  */
 package chat.cliente;
 
+import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -54,6 +55,11 @@ public class UserFrame extends javax.swing.JFrame {
                 txtUserNameActionPerformed(evt);
             }
         });
+        txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserNameKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,8 +90,8 @@ public class UserFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(txtUserName.getText().length() > 2 && txtUserName.getText().length() < 17){
+    protected void entrar(){
+                if(txtUserName.getText().length() > 2 && txtUserName.getText().length() < 17){
             try {
                 ChatFrame chat = new ChatFrame(txtUserName.getText());
                 chat.setVisible(true);
@@ -100,11 +106,21 @@ public class UserFrame extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Seu username deve conter pelo menos 3 caracteres e no máximo 16");
         }
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.entrar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void txtUserNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.entrar();
+        }
+    }//GEN-LAST:event_txtUserNameKeyPressed
 
     /**
      * @param args the command line arguments
